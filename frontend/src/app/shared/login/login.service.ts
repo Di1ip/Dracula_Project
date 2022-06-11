@@ -5,13 +5,13 @@ import { Inject, Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class LoginService {
-  baseUrl: any;
+  baseUrl:''
 
   constructor( private http : HttpClient, @Inject('baseUrl')_baseUrl : any ) 
   {
-    this.baseUrl=_baseUrl  
+    this.baseUrl= _baseUrl  
   }
-  login(form:any)
+  getlogin(form:any)
   {
     return this.http.post(this.baseUrl+'/login',form);
   }

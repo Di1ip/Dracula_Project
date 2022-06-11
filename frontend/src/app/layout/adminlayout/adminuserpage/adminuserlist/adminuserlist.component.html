@@ -10,17 +10,37 @@
                   <table id="order-listing" class="table">
                     <thead>
                       <tr class="bg-dark text-white">
-                          <th>Order #</th>
+                          <!-- <th>Order #</th>
                           <th>Customer</th>
                           <th>Ship to</th>
                           <th>Base Price</th>
                           <th>Purchased Price</th>
                           <th>Status</th>
-                          <th>Actions</th>
+                          <th>Actions</th> -->
+                          <th>Id #</th>
+                          <th>Name</th>
+                          <th>Email</th>
+                          <th colspan="3">Actions</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
+                      <tr *ngFor="let user of alluser">
+                        <td>{{user['_id']}}</td>
+                        <td>{{user['name']}}</td>
+                        <td>{{user['email']}}</td>
+                        <td>
+                          <a [routerLink]="['/layout/userpages/userdetail',user['_id']]">
+                            <i class="mdi mdi-eye"></i>
+                          </a>
+                        </td>
+                        <td>
+                            <button><i class="btn mdi mdi-close-circle" (click)="delete(user['_id'])"></i></button>
+                        </td>
+                        <td>
+                          <a [routerLink]="['/layout/userpages/edituser',user['_id']]"><i class="mdi mdi-note-plus"></i></a>
+                        </td>
+                      </tr>
+                      <!-- <tr>
                           <td>WD-61</td>
                           <td>Edinburgh</td>
                           <td>New York</td>
@@ -379,7 +399,7 @@
                               <i class="ti-close text-danger"></i>Remove
                             </button>
                           </td>
-                      </tr>
+                      </tr> -->
                     </tbody>
                   </table>
                 </div>

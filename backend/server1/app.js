@@ -17,6 +17,8 @@ mongoose.connect('mongodb://localhost/backendtry1')
 
 // fetch data from body in postman
 app.use(express.urlencoded({extended:false}));
+app.use(express.json({limit:'50mb'}))
+
 
 //insert seed data 
 const seed = require('./config/seed')

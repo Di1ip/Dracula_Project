@@ -9,7 +9,7 @@ const SECRET = 'hell@666';
 
 exports.login=(req,res)=>
 	{
-		User.findOne({"email":req.body.email})
+		User.findOne({"email":req.body.email,})
 		.then(uObj =>
 				{
 					if(uObj==null)
@@ -141,49 +141,74 @@ exports.addUser = (req,res)=>
 
 exports.userDetails=(req,res)=>
 	{
-		User.find()
-		.select('name email userType password createdAt')
-		// .populate('TeacherId')
-//		.populate('teacehrId','phone,salary,subject')
+		User.find({"status":true})
 		.then(data=>
-				{
-					if(data!=null)
+			{
+				res.json
+					(
 						{
-							res.json
-								(
-									{
-										"msg":"all User",
-										"status":200,
-										"success":true,
-										"data":data
-									}
-								)
+							"message":"All Users",
+							"status":200,
+							"success":true,
+							"data":data
 						}
-					else
-						{
-							res.json
-								(
-									{
-										"msg":"No user exist!",
-										"status":500,
-										"success":false,
-										"data":data
-									}
-								)
-						}
-				}
-			)
+					)
+			})
 		.catch(err=>
-				{
-					res.json
-						(
-							{
-								"msg":"Error in all User!",
-								"status":404,
-								"success":false,
-								"err":String(err)
-							}
-						)
-				}
-			)
+			{
+				res.json
+					(
+						{
+							"message":"User Not exist",
+							"status":500,
+							"success":false,
+							"error":String(err)
+						}
+					)
+			})
+// 		User.find()
+// 		.select('name email userType password createdAt')
+// 		// .populate('TeacherId')
+// //		.populate('teacehrId','phone,salary,subject')
+// 		.then(data=>
+// 				{
+// 					if(data!=null)
+// 						{
+// 							res.json
+// 								(
+// 									{
+// 										"msg":"all User",
+// 										"status":200,
+// 										"success":true,
+// 										"data":data
+// 									}
+// 								)
+// 						}
+// 					else
+// 						{
+// 							res.json
+// 								(
+// 									{
+// 										"msg":"No user exist!",
+// 										"status":500,
+// 										"success":false,
+// 										"data":data
+// 									}
+// 								)
+// 						}
+// 				}
+// 			)
+// 		.catch(err=>
+// 				{
+// 					res.json
+// 						(
+// 							{
+// 								"msg":"Error in all User!",
+// 								"status":404,
+// 								"success":false,
+// 								"err":String(err)
+// 							}
+// 						)
+// 				}
+// 			)
 	}

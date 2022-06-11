@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/auth/auth.service';
 import { LoginService } from 'src/app/shared/login/login.service';
@@ -11,11 +11,12 @@ import { NgxSpinnerService } from 'ngx-spinner';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit 
+{
   loginform = new FormGroup(
     {
-      email : new FormControl(''),
-      password : new FormControl('')
+      email : new FormControl('',[Validators.required,Validators.email]),
+      password : new FormControl('',[Validators.required])
     }
   )
     toastrService : any ;
@@ -23,35 +24,59 @@ export class LoginComponent implements OnInit {
   { 
     
   }
- 
+
   ngOnInit(): void 
   {
-    // console.log(this.auth.getemail())
+    console.log(this.auth.getemail())
     if(this.auth.getemail() != null)
     {
-      this.router.navigateByUrl('/layout/adminlayout/dashboard');
+      this.router.navigateByUrl('/login');
     }
      this.spinner.show();
       setTimeout(() => {
+        /** spinner ends after 5 seconds */
        this.spinner.hide();
      }, 2000);
-
   }
   submit()
   {
     this.spinner.show()
-      this.login.login(this.loginform.value).subscribe((res:any)=>
+    // if(this.loginform.value.email == "admin@admin.com" && this.loginform.value.password == "123")
+    //   {
+    //     //console.log('confirmed');
+    //     this.auth.setemail(this.loginform.value.email)
+    //     this.router.navigateByUrl("/layout/adminlayout/admindashboard");
+    //     this.toastr.success('Login Successful!');
+    //     this.spinner.show();
+    //     setTimeout(() => 
+    //       {
+    //         this.spinner.hide();
+    //       }, 5000);
+    //   }
+    //   else
+    //   {
+    //     // console.log('not validate');
+    //     this.toastr.error('Not valid');
+    //     this.spinner.show();
+    //     setTimeout(() => 
+    //       {
+    //         this.spinner.hide();
+    //       }, 5000);
+    //   }
+      console.log(this.loginform.value)
+      this.login.getlogin(this.loginform.value).subscribe((res:any)=>
       {
-         this.spinner.hide()
+        console.log(res)
+        this.spinner.hide()
         if(res.success)
           {
-            this.auth.setemail(this.loginform.value.email)
-            this.toastr.success('Successfull', res.message)
-            this.router.navigateByUrl('/layout/adminlayout/dashboard')
+            this.auth.setemail(res)
+            this.toastr.success('success',res.message)
+            this.router.navigateByUrl('/layout/adminlayout/admindashboard')
           }
-          else
+        else
           {
-            this.toastr.error('error!',res.message) 
+            this.toastr.error('error! login time',res.message) 
           }
       },
       err=>

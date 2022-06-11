@@ -6,22 +6,37 @@ import { AuthService } from '../auth/auth.service';
   providedIn: 'root'
 })
 export class UserService {
-  baseurl=''
+  baseUrl=''
   token:any
  
-  constructor(private http:HttpClient,@Inject('baseurl')_baseurl:any,private auth:AuthService)
+  constructor(private http:HttpClient,@Inject('baseUrl')_baseUrl:any,private auth:AuthService)
   { 
-    this.baseurl=_baseurl
+    this.baseUrl=_baseUrl
     this.token=this.auth.getemail()
   }
-  userDetail(form:any)
+  adduser(form:any)
   {
-    var header_object=new HttpHeaders().set('Autherization',this.token);
-    return this.http.post(this.baseurl+"/userDetails",form,{headers:header_object})
+    var header_object = new HttpHeaders().set('Authorization',this.token )
+    return this.http.post(this.baseUrl+"/addUser",form,{headers:header_object})
   }
-  deleteUser(form:any)
+  getalluser()
   {
-    var header_object=new HttpHeaders().set('Autherization',this.token);
-    return this.http.post(this.baseurl+"/deleteUser",form,{headers:header_object})
+    var header_object = new HttpHeaders().set('Authorization',this.token )
+    return this.http.get(this.baseUrl+"/userDetails",{headers:header_object})
+  }
+  userdetail(id:any)
+  {
+    var header_object = new HttpHeaders().set('Authorization',this.token )
+    return this.http.get(this.baseUrl+"/userDetails/"+id,{headers:header_object})
+  }
+  deleteuser(id:any)
+  {
+    var header_object = new HttpHeaders().set('Authorization',this.token )
+    return this.http.delete(this.baseUrl+"/deleteUser/"+id,{headers:header_object})
+  }
+  updateuser(id:any,form:any)
+  {
+    var header_object = new HttpHeaders().set('Authorization',this.token )
+    return this.http.post(this.baseUrl+"/userUpdate/"+id,form,{headers:header_object})
   }
 }

@@ -8,7 +8,7 @@ exports.insertUser =()=>
     let data = {
                     name:'admin',
                     email:'admin@admin.com',
-                    password:'123',
+                    password:123,
                     userType:'admin'
                 } 
     const hash = bcrypt.hashSync('123', saltRounds);

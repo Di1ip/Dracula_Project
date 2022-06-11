@@ -1,14 +1,6 @@
 const Book = require('./bookModel')
 
-// exports.add = (req,res)=>
-// {
-//     res.json
-//         ({
-//             "msg":"Add books!",
-//             "status":200,
-//             "success":true
-//         })
-// }
+
 exports.addBook = (req,res)=>
 {
     Book.findOne({bookName:req.body.bookName})

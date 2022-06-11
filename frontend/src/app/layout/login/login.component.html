@@ -12,11 +12,12 @@
                 
                 <div class="form-group">
                   <label>Username or Email *</label>
-                  <input type="text" class="form-control p_input" formControlName="email">
+                  <input type="email" class="form-control p_input" formControlName='email'>
+                  <small class="text-danger" *ngIf="loginform.get('email')?.invalid && loginform.get('email')?.invalid" >Please enter valid email</small>
                 </div>
                 <div class="form-group">
                   <label>Password *</label>
-                  <input type="text" class="form-control p_input" formControlName="password">
+                  <input type="password" class="form-control p_input" formControlName='password'>
                 </div>
                 <div class="form-group d-flex align-items-center justify-content-between">
                   <div class="form-check">
@@ -26,7 +27,7 @@
                   <a href="#" class="forgot-pass">Forgot password</a>
                 </div>
                 <div class="text-center">
-                  <button type="submit" class="btn btn-primary btn-block enter-btn" (click)="submit()" >Login</button>
+                  <button type="submit" class="btn btn-primary btn-block enter-btn" (click)="submit()" [disabled]="loginform.invalid" >Login</button>
                 </div>
                 <div class="d-flex">
                   <button class="btn btn-facebook mr-2 col">
